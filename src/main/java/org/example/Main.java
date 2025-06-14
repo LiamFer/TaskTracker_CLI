@@ -5,13 +5,13 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
 
-
 @Command(
         name = "task-cli",
         mixinStandardHelpOptions = true,
         version = "task-cli 1.0",
         description = "Aplicativo de tarefas no terminal.",
-        subcommands = {AddTask.class, UpdateTask.class, DeleteTask.class}
+        subcommands = {AddTask.class, UpdateTask.class, DeleteTask.class, MarkProgress.class, MarkDone.class, MarkTodo.class,
+        ListTasks.class}
 )
 public class Main implements Runnable {
     @Override

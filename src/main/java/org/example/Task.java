@@ -44,4 +44,8 @@ public class Task {
         this.updatedAt = LocalDateTime.now();
     }
 
+    @Override
+    public String toString(){
+        return String.format("ID: %d\nDescrição: %s\nStatus: %s\nCriado: %s\nEditado em: %s\n",id,description,status,createdAt,updatedAt);
+    }
 }
