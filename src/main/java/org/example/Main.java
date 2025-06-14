@@ -1,13 +1,30 @@
 package org.example;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
 
-public class Main {
+
+
+@Command(
+        name = "task-cli",
+        mixinStandardHelpOptions = true,
+        version = "task-cli 1.0",
+        description = "Aplicativo de tarefas no terminal.",
+        subcommands = {AddTask.class}
+)
+public class Main implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Use um comando, ex: add, list, remove");
+    }
+
     public static void main(String[] args) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
-        new CheckSum();
-
+        int exitCode = new CommandLine(new Main()).execute(args);
+        System.exit(exitCode);
     }
 }
+
+
+
+
