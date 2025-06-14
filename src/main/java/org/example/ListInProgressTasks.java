@@ -5,13 +5,16 @@ import picocli.CommandLine.Command;
 
 import java.util.concurrent.Callable;
 
-@Command(name = "list", mixinStandardHelpOptions = true, version = "taskcli 1.0",
-        description = "List all the Tasks.", subcommands = {ListDoneTasks.class, ListTodoTasks.class, ListInProgressTasks.class})
-public class ListTasks implements Callable<Integer> {
+@CommandLine.Command(
+        name = "in-progress",
+        description = "Lista apenas tarefas pendentes"
+)
+public class ListInProgressTasks implements Callable<Integer> {
+
     @Override
     public Integer call() throws Exception {
         TasksDB.connectDatabase();
-        TasksDB.listTasks();
+        TasksDB.listTasks(Status.IN_PROGRESS);
         return 0;
     }
 
