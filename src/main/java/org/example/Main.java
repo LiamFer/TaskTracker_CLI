@@ -11,7 +11,7 @@ import picocli.CommandLine.Command;
         mixinStandardHelpOptions = true,
         version = "task-cli 1.0",
         description = "Aplicativo de tarefas no terminal.",
-        subcommands = {AddTask.class}
+        subcommands = {AddTask.class, UpdateTask.class, DeleteTask.class}
 )
 public class Main implements Runnable {
     @Override

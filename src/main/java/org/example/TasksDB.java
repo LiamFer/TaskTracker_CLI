@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class TasksDB {
     private static ArrayList<Task> tasks;
@@ -27,9 +28,38 @@ public class TasksDB {
         tasks = mapper.readValue(file,new TypeReference<ArrayList<Task>>() {});
     }
     public static void addTask(String description){
-        tasks.add(new Task(description));
+        int id = 1;
+        if(!tasks.isEmpty()){
+            id = tasks.getLast().getId()+1;
+        }
+        tasks.add(new Task(id,description));
         saveChanges();
     }
+
+    public static void updateTask(int id,String description){
+        for (Task task : tasks){
+            if(task.getId() == id){
+                task.setDescription(description);
+                saveChanges();
+                System.out.printf("Task \"%d\" foi editada com Sucesso!\n",id);
+                return;
+            }
+        }
+        System.out.printf("Tarefa com o ID %d não existe!\n",id);
+    }
+
+    public static void deleteTask(int id){
+        for (int i = 0; i < tasks.size();i++){
+            if(tasks.get(i).getId() == id){
+                tasks.remove(i);
+                saveChanges();
+                System.out.printf("Task \"%d\" foi removida com Sucesso!\n",id);
+                return;
+            }
+        }
+        System.out.printf("Tarefa com o ID %d não existe!\n",id);
+    }
+
     private static void saveChanges(){
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());

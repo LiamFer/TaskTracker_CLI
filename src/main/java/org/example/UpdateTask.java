@@ -6,17 +6,19 @@ import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 
-@Command(name = "add", mixinStandardHelpOptions = true, version = "taskcli 1.0",
-        description = "Adds a new task.")
-public class AddTask implements Callable<Integer> {
-    @Parameters(index = "0", description = "The task name.")
+@Command(name = "update", mixinStandardHelpOptions = true, version = "taskcli 1.0",
+        description = "Updates the Task.")
+public class UpdateTask implements Callable<Integer> {
+    @Parameters(index = "0", description = "The task id.")
+    private int id;
+
+    @Parameters(index = "1", description = "The new task name.")
     private String description;
 
     @Override
     public Integer call() throws Exception {
         TasksDB.connectDatabase();
-        TasksDB.addTask(description);
-        System.out.printf("Task \"%s\" foi criada com Sucesso!\n",description);
+        TasksDB.updateTask(id,description);
         return 0;
     }
 

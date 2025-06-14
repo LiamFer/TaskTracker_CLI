@@ -3,7 +3,6 @@ package org.example;
 import java.time.LocalDateTime;
 
 public class Task {
-    private static int taskIDS = 1;
     private int id;
     private String description;
     private Status status;
@@ -11,16 +10,14 @@ public class Task {
     private LocalDateTime updatedAt;
 
     Task(){}
-    Task(String description){
+    Task(int id, String description){
         this.description = description;
         this.status = Status.TODO;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-        this.id = taskIDS;
-        taskIDS++;
+        this.id = id;
     }
 
-    public static int getTaskIDS(){return taskIDS;}
     public int getId() {
         return id;
     }
@@ -37,5 +34,14 @@ public class Task {
         return updatedAt;
     }
 
+    public void setDescription(String description){
+        this.description = description;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setStatus(Status status){
+        this.status = status;
+        this.updatedAt = LocalDateTime.now();
+    }
 
 }
